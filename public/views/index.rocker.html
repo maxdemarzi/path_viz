@@ -1,0 +1,65 @@
+@args (Long neoid)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/css/global.css">
+</head>
+<body>
+
+<div id="graph">
+    <header>
+        <section>
+            <h1>Viva Neo4j</h1>
+        </section>
+        <section id="search">
+            <form action="/", method="get">
+                <label>Search:</label>
+                <input id="neoid" type="text" value="@neoid" name="neoid">
+                <input id="loadnode" type="submit" value="Load" class="button">
+                <br/>
+            </form>
+        </section>
+    </header>
+
+    <section id="content">
+    </section>
+    <aside id="left">
+        <div id="credits">
+            <h1>Viva Neo Introduction</h1>
+
+            <h2>About</h2>
+            <p>Explore the <a href="http://neo4j.com"><strong>Neo4j</strong></a> graph with <a href="https://github.com/anvaka/VivaGraphJS/"><strong>Vivagraph.js</strong></a></p>
+
+            <h3>Credits</h3>
+            <p>This project was made by <a href="http://maxdemarzi.com"><strong>Max De Marzi</strong></a> using
+                <a href="http://neo4j.com"><strong>Neo4j</strong></a>, <a href="https://github.com/anvaka/VivaGraphJS/"><strong>Vivagraph.js</strong></a>
+                and <a href="http://jooby.org/"><strong>Jooby</strong></a>.
+            </p>
+
+            <h3>Code</h3>
+            Available on <a href="https://github.com/maxdemarzi/path_viz">github</a>
+        </div>
+    </aside>
+    <aside id="right">
+        <div id="explanation">
+            <p><strong>Hover over Node to Display Properties</strong></p>
+        </div>
+    </aside>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="/assets/js/vivagraph.min.js"></script>
+<script src="/assets/js/path_viz.js"></script>
+<script src="/assets/js/path_autocomplete.js"></script>
+<script>
+    $( document ).ready(function() {
+        onLoad();
+    });
+</script>
+</body>
+</html>
