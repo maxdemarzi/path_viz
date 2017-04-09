@@ -29,10 +29,10 @@ public class App extends Jooby {
     use(new Neo4j());
 
     // Setup Keywords
-        onStart(registry -> {
-                Config conf = require(Config.class);
-                keywords = new ArrayList<>(conf.getStringList("viz.display_properties"));
-         });
+    onStart(registry -> {
+            Config conf = require(Config.class);
+            keywords = new ArrayList<>(conf.getStringList("viz.display_properties"));
+     });
 
     assets("/assets/**");
 
@@ -52,18 +52,20 @@ public class App extends Jooby {
 
     }).produces("json");
 
-        get("/edges/", req -> {
-            Cypher cypher = require(Cypher.class);
-            String query =
-                    "MATCH (me)--(target) " +
-                    "RETURN ID(me) AS source, LABELS(me)[0] AS source_label, me AS source_data, " +
-                    "ID(target) AS target, LABELS(target)[0] AS target_label, target AS target_data " +
-                    "LIMIT 10";
+    // Get a random set of Nodes
+    get("/edges/", req -> {
+        Cypher cypher = require(Cypher.class);
+        String query =
+                "MATCH (me)--(target) " +
+                "RETURN ID(me) AS source, LABELS(me)[0] AS source_label, me AS source_data, " +
+                "ID(target) AS target, LABELS(target)[0] AS target_label, target AS target_data " +
+                "LIMIT 10";
 
-            ArrayList<HashMap<String, Object>> results = prepareResults(req, cypher, query);
-            return results;
-        });
+        ArrayList<HashMap<String, Object>> results = prepareResults(req, cypher, query);
+        return results;
+    });
 
+    // Get the neighborhood of a particular Node
     get("/edges/{id}", req -> {
         Cypher cypher = require(Cypher.class);
         String query =
@@ -109,8 +111,9 @@ public class App extends Jooby {
         return results;
     }
 
+    // From the list of possible display properties, add it to text if it finds it otherwise use the label.
     private  void addDisplayProperty(HashMap<String, Object> source_data) {
-        source_data.put("text", source_data.get("type"));
+        source_data.put("text", source_data.get("label"));
         for (String key : keywords) {
             if (source_data.containsKey(key)) {
                 source_data.put("text", source_data.get(key));
